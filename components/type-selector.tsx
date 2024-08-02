@@ -86,7 +86,7 @@ function TypeSelectorParent(type: {id: string, label: string, value: NERISType})
             {Object.keys(type.value).map((key) => (
               <>
                 {type.value[key]?.sub_values && isNotEmptyObject(type.value[key]?.sub_values) ? (
-                  <DropdownMenuSub>
+                  <DropdownMenuSub key={key}>
                     <DropdownMenuSubTrigger className="w-full">
                       <Link href={`?select=${type.id}&parent=${key}`} className="w-full" prefetch={false}>
                         <DropdownMenuShortcut>{key}</DropdownMenuShortcut>
@@ -95,7 +95,7 @@ function TypeSelectorParent(type: {id: string, label: string, value: NERISType})
                     <DropdownMenuPortal>
                       <DropdownMenuSubContent>
                         {Object.keys(type.value[key].sub_values!).map((subKey) => (
-                          <TypeSelectorChild child={type.value[key]?.sub_values![subKey]} href={`?select=${type.id}&parent=${key}`} />
+                          <TypeSelectorChild key={subKey} child={type.value[key]?.sub_values![subKey]} href={`?select=${type.id}&parent=${key}`} />
                         ))}
                       </DropdownMenuSubContent>
                     </DropdownMenuPortal>
@@ -145,7 +145,7 @@ function TypeSelectorChild({child, href}: TypeSelectorChildProps) {
         {child.sub_values && (
           <>
             {Object.keys(child.sub_values).map((subKey) => (
-              <TypeSelectorChild child={child.sub_values![subKey]} href={href} />
+              <TypeSelectorChild key={subKey} child={child.sub_values![subKey]} href={href} />
             ))}
 
           </>
